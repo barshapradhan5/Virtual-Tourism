@@ -29,12 +29,19 @@ export const RegisterPage: React.FC = () => {
       await register(email, password, displayName);
       navigate(redirect);
     } catch (err: any) {
-      setError(
-        err.response?.data?.email?.[0] ||
-        err.response?.data?.password?.[0] ||
-        err.response?.data?.detail ||
-        'Registration failed. Please check your details and try again.'
-      );
+      if (!err.response) {
+        setError('Cannot connect to backend server. Make sure it is running on http://127.0.0.1:8000');
+      } else {
+        const data = err.response.data;
+        setError(
+          data?.email?.[0] ||
+          data?.password?.[0] ||
+          data?.display_name?.[0] ||
+          data?.non_field_errors?.[0] ||
+          data?.detail ||
+          (typeof data === 'string' ? data : 'Registration failed. Please check your details and try again.')
+        );
+      }
     } finally {
       setLoading(false);
     }

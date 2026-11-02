@@ -23,11 +23,18 @@ export const LoginPage: React.FC = () => {
       await login(email, password);
       navigate(redirect);
     } catch (err: any) {
-      setError(
-        err.response?.data?.detail ||
-        err.response?.data?.non_field_errors?.[0] ||
-        'Invalid email or password. Please try again.'
-      );
+      if (!err.response) {
+        setError('Cannot connect to backend server. Make sure it is running on http://127.0.0.1:8000');
+      } else {
+        const data = err.response.data;
+        setError(
+          data?.detail ||
+          data?.non_field_errors?.[0] ||
+          data?.email?.[0] ||
+          data?.password?.[0] ||
+          'Invalid email or password. Please try again.'
+        );
+      }
     } finally {
       setLoading(false);
     }
