@@ -1,0 +1,67 @@
+# ==========================================
+# Bharat Darshan 3D - Git Ignore Rules
+# ==========================================
+
+# Environment variables & secrets (CRITICAL)
+.env
+.env.*
+*.env
+**/.env
+**/.env.*
+!*.env.example
+!.env.example
+
+# Python & Virtual Environments
+backend_venv/
+venv/
+.venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Django local files & media
+*.sqlite3
+*.sqlite3-journal
+db.sqlite3
+/backend/staticfiles/
+/backend/media/
+staticfiles/
+media/
+
+# Node & Frontend dependencies & build output
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+dist-ssr/
+frontend/dist-ssr/
+*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor & OS files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+Desktop.ini
+

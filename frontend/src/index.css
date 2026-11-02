@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-void text-ink-main font-sans antialiased selection:bg-royal-600 selection:text-ink-main min-h-screen overflow-x-hidden;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-surface/70 backdrop-blur-glass border border-sage-300/15 rounded-2xl shadow-xl transition-all duration-300;
+  }
+  
+  .glass-panel-hover {
+    @apply hover:border-royal-400/30 hover:shadow-glow;
+  }
+
+  .btn-wine {
+    @apply bg-wine-600 hover:bg-wine-400 text-ink-main font-medium px-5 py-2.5 rounded-xl shadow-glow-wine transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2;
+  }
+
+  .btn-forest {
+    @apply bg-forest-600 hover:bg-forest-400 text-ink-main font-medium px-5 py-2.5 rounded-xl shadow-glow-forest transition-all duration-200 active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2;
+  }
+
+  .btn-ghost {
+    @apply bg-surface/40 hover:bg-surface/80 text-ink-main border border-sage-300/20 hover:border-sage-300/40 px-4 py-2 rounded-xl transition-all duration-200 flex items-center justify-center gap-2;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0F0D;
+}
+::-webkit-scrollbar-thumb {
+  background: #1F5C3F;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3E8E64;
+}
