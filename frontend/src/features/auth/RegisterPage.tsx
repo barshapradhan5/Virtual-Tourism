@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Compass, Sparkles, AlertCircle, ArrowRight, Lock, Mail, User } from 'lucide-react';
 import { useAuth } from './AuthContext';
+import { API_BASE_URL } from '../../lib/api';
 
 export const RegisterPage: React.FC = () => {
   const { register } = useAuth();
@@ -30,7 +31,7 @@ export const RegisterPage: React.FC = () => {
       navigate(redirect);
     } catch (err: any) {
       if (!err.response) {
-        setError('Cannot connect to backend server. Make sure it is running on http://127.0.0.1:8000');
+        setError(`Cannot connect to backend server (${API_BASE_URL}). If using Render free tier, please wait 30 seconds for it to wake up.`);
       } else {
         const data = err.response.data;
         setError(

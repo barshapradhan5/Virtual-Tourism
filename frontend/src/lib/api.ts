@@ -1,6 +1,25 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
+/**
+ * Determine the backend API URL dynamically:
+ * 1. If VITE_API_BASE_URL is explicitly configured, use it.
+ * 2. If running on local machine (localhost / 127.0.0.1), use local Django development server.
+ * 3. In cloud production (Vercel), default seamlessly to the deployed Render backend.
+ */
+export const getApiBaseUrl = (): string => {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname;
+    if (host === 'localhost' || host === '127.0.0.1') {
+      return 'http://localhost:8000/api/v1';
+    }
+  }
+  return 'https://virtual-tourism.onrender.com/api/v1';
+};
+
+export const API_BASE_URL = getApiBaseUrl();
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
@@ -42,4 +61,3 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-

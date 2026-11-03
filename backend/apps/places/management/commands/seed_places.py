@@ -600,4 +600,24 @@ class Command(BaseCommand):
                     defaults={'image_url': hero, 'caption': f"Panoramic view of {place.name}"}
                 )
 
+        # Ensure demo user exists for seamless evaluation and login
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+        demo_email = 'admin@bharatdarshan.com'
+        demo_user = User.objects.filter(email=demo_email).first()
+        if not demo_user:
+            demo_user = User.objects.create_superuser(
+                email=demo_email,
+                username='admin',
+                password='Admin@12345',
+                display_name='Bharat Admin'
+            )
+            self.stdout.write(self.style.SUCCESS(f"Demo superuser created: {demo_email}"))
+        else:
+            demo_user.set_password('Admin@12345')
+            demo_user.is_superuser = True
+            demo_user.is_staff = True
+            demo_user.save()
+            self.stdout.write(self.style.SUCCESS(f"Demo superuser updated: {demo_email}"))
+
         self.stdout.write(self.style.SUCCESS(f"Successfully seeded {len(places_data)} places (at least 3 spots per category across 7 categories)!"))
